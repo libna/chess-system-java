@@ -25,6 +25,13 @@ public class ChessMatch {
 		return mat;
 	}
 	
+	public boolean[][] possibleMoves(ChessPosition sourcePosition){
+		Position position = sourcePosition.toPosition();
+		validateSourcePosition(position);
+		return board.piece(position).possibleMoves();
+		
+	}
+	
 	public ChessPiece PerformChessMove(ChessPosition sourcePosition, ChessPosition targetPosition ) {
 		Position source = sourcePosition.toPosition();
 		Position target = targetPosition.toPosition();
@@ -39,7 +46,7 @@ public class ChessMatch {
 			throw new ChessException("n existe peca");
 		}
 		if(!board.piece(position).isThereAnyPossibleMove()) {
-			throw new ChessException("nenhum movimento possível");
+			throw new ChessException("nenhum movimento possível ");
 		}
 	}
 	
@@ -50,9 +57,7 @@ public class ChessMatch {
 		}
 		
 	}
-	
-	
-	
+
 	private Piece makeMove(Position source, Position target) {
 		Piece p = board.removePiece(source);
 		Piece capturedPiece = board.removePiece(target);
